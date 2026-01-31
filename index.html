@@ -3,9 +3,862 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>The Coding Current - Learn & Master Coding Challenges</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --accent: #06b6d4;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+        
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--accent);
+            font-size: 28px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            color: var(--secondary);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-text h2 {
+            font-size: 48px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-text p {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .code-editor {
+            background-color: var(--secondary);
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .editor-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .editor-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .red {
+            background-color: #ff5f56;
+        }
+        
+        .yellow {
+            background-color: #ffbd2e;
+        }
+        
+        .green {
+            background-color: #27ca3f;
+        }
+        
+        .editor-content {
+            font-family: 'Courier New', monospace;
+            color: #e2e8f0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .editor-line {
+            margin-bottom: 5px;
+        }
+        
+        .keyword {
+            color: #ff6b8b;
+        }
+        
+        .function {
+            color: #82aaff;
+        }
+        
+        .string {
+            color: #c3e88d;
+        }
+        
+        .comment {
+            color: #637777;
+        }
+        
+        /* Features Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h3 {
+            font-size: 36px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features {
+            padding: 80px 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            background-color: #e0f2fe;
+            color: var(--primary);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .feature-card h4 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+        }
+        
+        /* Challenges Section */
+        .challenges {
+            padding: 80px 0;
+            background-color: #f8fafc;
+        }
+        
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .challenge-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .challenge-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .challenge-header {
+            padding: 20px;
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .challenge-header h4 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .challenge-difficulty {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        
+        .easy {
+            background-color: var(--success);
+        }
+        
+        .medium {
+            background-color: var(--warning);
+        }
+        
+        .hard {
+            background-color: #ef4444;
+        }
+        
+        .challenge-body {
+            padding: 20px;
+        }
+        
+        .challenge-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .challenge-footer {
+            padding: 0 20px 20px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h3 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-light {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .btn-light:hover {
+            background-color: #f1f5f9;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: #cbd5e1;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h4 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #334155;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            font-size: 14px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text h2 {
+                font-size: 36px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .hero-text h2 {
+                font-size: 32px;
+            }
+            
+            .section-title h3 {
+                font-size: 28px;
+            }
+        }
+        
+        /* Animation for typing effect */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        .typing-text {
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+            position: relative;
+            animation: typing 3.5s steps(40, end);
+        }
+        
+        .typing-text::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
 </head>
 <body>
-    <h1>hello</h1>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <h1>The Coding Current</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-book"></i> Learn</a></li>
+                    <li><a href="#"><i class="fas fa-tasks"></i> Challenges</a></li>
+                    <li><a href="#"><i class="fas fa-chart-line"></i> Leaderboard</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> Community</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-outline">Log In</button>
+                <button class="btn btn-primary">Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h2>Ride the Wave of <span class="typing-text">Code Mastery</span></h2>
+                <p>Join thousands of developers who are improving their skills through interactive coding challenges, comprehensive tutorials, and real-world projects. From beginner to advanced levels, we've got everything you need to become a better programmer.</p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <button class="btn btn-primary">Start Learning Now</button>
+                    <button class="btn btn-outline">View Challenges</button>
+                </div>
+                <div style="margin-top: 30px; display: flex; gap: 30px;">
+                    <div>
+                        <h3 style="font-size: 32px; color: var(--primary);">500+</h3>
+                        <p>Coding Challenges</p>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 32px; color: var(--primary);">10k+</h3>
+                        <p>Active Developers</p>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 32px; color: var(--primary);">50+</h3>
+                        <p>Learning Paths</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-dot red"></div>
+                        <div class="editor-dot yellow"></div>
+                        <div class="editor-dot green"></div>
+                        <span style="color: #cbd5e1; font-size: 14px; margin-left: 10px;">solution.js</span>
+                    </div>
+                    <div class="editor-content">
+                        <div class="editor-line"><span class="keyword">function</span> <span class="function">findMaxProfit</span>(prices) {</div>
+                        <div class="editor-line">&nbsp;&nbsp;<span class="keyword">let</span> minPrice = <span class="function">Infinity</span>;</div>
+                        <div class="editor-line">&nbsp;&nbsp;<span class="keyword">let</span> maxProfit = <span class="number">0</span>;</div>
+                        <div class="editor-line">&nbsp;&nbsp;</div>
+                        <div class="editor-line">&nbsp;&nbsp;<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < prices.length; i++) {</div>
+                        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (prices[i] < minPrice) {</div>
+                        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minPrice = prices[i];</div>
+                        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;} <span class="keyword">else</span> <span class="keyword">if</span> (prices[i] - minPrice > maxProfit) {</div>
+                        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxProfit = prices[i] - minPrice;</div>
+                        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+                        <div class="editor-line">&nbsp;&nbsp;}</div>
+                        <div class="editor-line">&nbsp;&nbsp;</div>
+                        <div class="editor-line">&nbsp;&nbsp;<span class="keyword">return</span> maxProfit;</div>
+                        <div class="editor-line">}</div>
+                        <div class="editor-line comment">// Challenge: Best Time to Buy and Sell Stock</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h3>Why Choose The Coding Current?</h3>
+                <p>We provide a comprehensive platform designed to help developers at every stage of their coding journey.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h4>Interactive Challenges</h4>
+                    <p>Solve coding problems with our built-in code editor that provides real-time feedback and hints when you're stuck.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h4>Structured Learning Paths</h4>
+                    <p>Follow curated learning paths from beginner to expert level in various technologies and programming languages.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h4>Compete & Earn Badges</h4>
+                    <p>Participate in weekly coding competitions, climb the leaderboard, and earn badges to showcase your skills.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h4>Vibrant Community</h4>
+                    <p>Connect with other developers, discuss solutions, and get help from experienced mentors in our active community forums.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section class="challenges">
+        <div class="container">
+            <div class="section-title">
+                <h3>Featured Coding Challenges</h3>
+                <p>Test your skills with our hand-picked selection of coding challenges across different difficulty levels.</p>
+            </div>
+            <div class="challenges-grid">
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <h4>Two Sum</h4>
+                        <span class="challenge-difficulty easy">Easy</span>
+                    </div>
+                    <div class="challenge-body">
+                        <p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
+                        <div class="challenge-stats">
+                            <span><i class="fas fa-user"></i> 15,234 solved</span>
+                            <span><i class="far fa-clock"></i> 30 mins avg</span>
+                        </div>
+                    </div>
+                    <div class="challenge-footer">
+                        <button class="btn btn-primary" style="width: 100%;">Solve Challenge</button>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <h4>Binary Tree Traversal</h4>
+                        <span class="challenge-difficulty medium">Medium</span>
+                    </div>
+                    <div class="challenge-body">
+                        <p>Implement inorder, preorder, and postorder traversal of a binary tree both recursively and iteratively.</p>
+                        <div class="challenge-stats">
+                            <span><i class="fas fa-user"></i> 8,761 solved</span>
+                            <span><i class="far fa-clock"></i> 45 mins avg</span>
+                        </div>
+                    </div>
+                    <div class="challenge-footer">
+                        <button class="btn btn-primary" style="width: 100%;">Solve Challenge</button>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <h4>Sudoku Solver</h4>
+                        <span class="challenge-difficulty hard">Hard</span>
+                    </div>
+                    <div class="challenge-body">
+                        <p>Write a program to solve a Sudoku puzzle by filling the empty cells using backtracking algorithm.</p>
+                        <div class="challenge-stats">
+                            <span><i class="fas fa-user"></i> 4,329 solved</span>
+                            <span><i class="far fa-clock"></i> 60 mins avg</span>
+                        </div>
+                    </div>
+                    <div class="challenge-footer">
+                        <button class="btn btn-primary" style="width: 100%;">Solve Challenge</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h3>Start Your Coding Journey Today</h3>
+            <p>Join thousands of developers who are already riding the wave of coding mastery. It's free to get started!</p>
+            <button class="btn btn-light">Create Free Account</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo">
+                        <i class="fas fa-code"></i>
+                        <h1>The Coding Current</h1>
+                    </div>
+                    <p style="margin-top: 15px;">Master coding through interactive challenges and structured learning paths. Ride the wave of code mastery with us.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#">Challenges</a></li>
+                        <li><a href="#">Learning Paths</a></li>
+                        <li><a href="#">Code Editor</a></li>
+                        <li><a href="#">Leaderboard</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 The Coding Current. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation to challenge cards on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Animate feature cards and challenge cards
+            document.querySelectorAll('.feature-card, .challenge-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s, transform 0.5s';
+                observer.observe(card);
+            });
+            
+            // Button click handlers
+            document.querySelectorAll('.btn-primary, .btn-light, .btn-outline').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.textContent.includes('Solve Challenge')) {
+                        alert('Challenge page would open here. This is a demo.');
+                    } else if (this.textContent.includes('Sign Up') || this.textContent.includes('Create Free Account')) {
+                        alert('Sign up modal would open here. This is a demo.');
+                    } else if (this.textContent.includes('Log In')) {
+                        alert('Login modal would open here. This is a demo.');
+                    } else {
+                        alert('Navigation would occur here. This is a demo.');
+                    }
+                });
+            });
+            
+            // Simulate live user count updates
+            function updateLiveStats() {
+                const userCountElement = document.querySelector('.hero-text h3:nth-child(1)');
+                if (userCountElement) {
+                    const currentCount = parseInt(userCountElement.textContent.replace('10k+', '10000'));
+                    const randomIncrement = Math.floor(Math.random() * 10) + 1;
+                    const newCount = currentCount + randomIncrement;
+                    userCountElement.textContent = newCount.toLocaleString() + '+';
+                }
+            }
+            
+            // Update stats every 30 seconds
+            setInterval(updateLiveStats, 30000);
+            
+            // Typing effect for the hero section
+            const typingText = document.querySelector('.typing-text');
+            const texts = ['Code Mastery', 'Problem Solving', 'Algorithms', 'Web Development', 'Data Structures'];
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typingSpeed = 100;
+            
+            function typeText() {
+                const currentText = texts[textIndex];
+                
+                if (isDeleting) {
+                    // Deleting text
+                    typingText.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                    typingSpeed = 50;
+                } else {
+                    // Typing text
+                    typingText.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                    typingSpeed = 100;
+                }
+                
+                // If text is fully typed
+                if (!isDeleting && charIndex === currentText.length) {
+                    isDeleting = true;
+                    typingSpeed = 1000; // Pause at end
+                } 
+                // If text is fully deleted
+                else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % texts.length;
+                    typingSpeed = 500; // Pause before typing next
+                }
+                
+                setTimeout(typeText, typingSpeed);
+            }
+            
+            // Start typing effect after initial animation completes
+            setTimeout(typeText, 3500);
+        });
+    </script>
 </body>
 </html>
