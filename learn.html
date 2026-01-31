@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn to Code | The Coding Current</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --accent: #06b6d4;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--accent);
+            font-size: 28px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            color: var(--secondary);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .page-header h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: none;
+            font-size: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-box button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+        
+        /* Learning Paths Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 60px;
+        }
+        
+        .section-title h3 {
+            font-size: 36px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .learning-paths {
+            padding-bottom: 60px;
+        }
+        
+        .paths-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .paths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .path-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .path-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .path-header {
+            padding: 25px;
+            background-color: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .path-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .path-header h4 {
+            font-size: 20px;
+            color: var(--secondary);
+        }
+        
+        .path-body {
+            padding: 25px;
+        }
+        
+        .path-description {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .path-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .path-progress {
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success);
+            border-radius: 4px;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-top: 5px;
+            color: var(--gray);
+        }
+        
+        .path-footer {
+            padding: 0 25px 25px;
+        }
+        
+        /* Courses Section */
+        .courses {
+            padding-bottom: 80px;
+            background-color: #f8fafc;
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .course-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .course-image {
+            height: 180px;
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: var(--primary);
+        }
+        
+        .course-content {
+            padding: 20px;
+        }
+        
+        .course-category {
+            display: inline-block;
+            padding: 3px 10px;
+            background-color: #e0f2fe;
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .course-content h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .course-instructor {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .instructor-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+        }
+        
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .course-duration {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: #cbd5e1;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h4 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #334155;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            font-size: 14px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .page-header h2 {
+                font-size: 32px;
+            }
+            
+            .section-title h3 {
+                font-size: 28px;
+            }
+            
+            .paths-grid, .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <h1>The Coding Current</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="learn.html" class="active"><i class="fas fa-book"></i> Learn</a></li>
+                    <li><a href="challenges.html"><i class="fas fa-tasks"></i> Challenges</a></li>
+                    <li><a href="#"><i class="fas fa-chart-line"></i> Leaderboard</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> Community</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-outline">Log In</button>
+                <button class="btn btn-primary">Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h2>Learn to Code</h2>
+            <p>Master programming through structured learning paths, interactive tutorials, and real-world projects. Start from scratch or advance your skills with our expert-curated content.</p>
+            <div class="search-box">
+                <input type="text" placeholder="Search for courses, tutorials, or topics...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Paths Section -->
+    <section class="learning-paths">
+        <div class="container">
+            <div class="section-title">
+                <h3>Structured Learning Paths</h3>
+                <p>Follow these curated paths to systematically build your programming skills from beginner to advanced levels.</p>
+            </div>
+            
+            <div class="paths-filter">
+                <button class="filter-btn active" data-filter="all">All Paths</button>
+                <button class="filter-btn" data-filter="beginner">Beginner</button>
+                <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+                <button class="filter-btn" data-filter="advanced">Advanced</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="data">Data Science</button>
+            </div>
+            
+            <div class="paths-grid">
+                <div class="path-card" data-category="beginner web">
+                    <div class="path-header">
+                        <div class="path-icon" style="background-color: #3b82f6;">
+                            <i class="fab fa-html5"></i>
+                        </div>
+                        <div>
+                            <h4>Frontend Web Development</h4>
+                            <span style="color: var(--gray); font-size: 14px;">Beginner • 12 weeks</span>
+                        </div>
+                    </div>
+                    <div class="path-body">
+                        <p class="path-description">Learn to build beautiful, responsive websites with HTML, CSS, and JavaScript. Master modern frameworks like React.</p>
+                        
+                        <div class="path-stats">
+                            <span><i class="fas fa-users"></i> 24,500 learners</span>
+                            <span><i class="fas fa-star"></i> 4.8/5.0</span>
+                        </div>
+                        
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 30%;"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span>12 courses</span>
+                                <span>30% complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="path-footer">
+                        <button class="btn btn-primary" style="width: 100%;">Continue Learning</button>
+                    </div>
+                </div>
+                
+                <div class="path-card" data-category="intermediate web">
+                    <div class="path-header">
+                        <div class="path-icon" style="background-color: #8b5cf6;">
+                            <i class="fab fa-node-js"></i>
+                        </div>
+                        <div>
+                            <h4>Backend Development</h4>
+                            <span style="color: var(--gray); font-size: 14px;">Intermediate • 10 weeks</span>
+                        </div>
+                    </div>
+                    <div class="path-body">
+                        <p class="path-description">Build robust server-side applications with Node.js, Express, and databases. Learn authentication, APIs, and deployment.</p>
+                        
+                        <div class="path-stats">
+                            <span><i class="fas fa-users"></i> 18,200 learners</span>
+                            <span><i class="fas fa-star"></i> 4.7/5.0</span>
+                        </div>
+                        
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%;"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span>8 courses</span>
+                                <span>65% complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="path-footer">
+                        <button class="btn btn-primary" style="width: 100%;">Continue Learning</button>
+                    </div>
+                </div>
+                
+                <div class="path-card" data-category="beginner data">
+                    <div class="path-header">
+                        <div class="path-icon" style="background-color: #10b981;">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h4>Python for Data Science</h4>
+                            <span style="color: var(--gray); font-size: 14px;">Beginner • 14 weeks</span>
+                        </div>
+                    </div>
+                    <div class="path-body">
+                        <p class="path-description">Learn Python programming, data analysis, visualization, and machine learning fundamentals with real datasets.</p>
+                        
+                        <div class="path-stats">
+                            <span><i class="fas fa-users"></i> 32,100 learners</span>
+                            <span><i class="fas fa-star"></i> 4.9/5.0</span>
+                        </div>
+                        
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 10%;"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span>10 courses</span>
+                                <span>10% complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="path-footer">
+                        <button class="btn btn-primary" style="width: 100%;">Start Learning</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses">
+        <div class="container">
+            <div class="section-title">
+                <h3>Featured Courses</h3>
+                <p>Explore our most popular courses across different programming domains and skill levels.</p>
+            </div>
+            
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image">
+                        <i class="fab fa-js-square"></i>
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">JavaScript</span>
+                        <h4>Modern JavaScript From Zero to Hero</h4>
+                        <p>Master ES6+ features, asynchronous programming, and modern JavaScript patterns.</p>
+                        
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"></div>
+                            <span>Alex Johnson</span>
+                        </div>
+                        
+                        <div class="course-footer">
+                            <div class="course-duration">
+                                <i class="far fa-clock"></i>
+                                <span>24 hours</span>
+                            </div>
+                            <span style="font-weight: 600; color: var(--secondary);">Free</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-image">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">Python</span>
+                        <h4>Data Structures & Algorithms in Python</h4>
+                        <p>Implement essential data structures and algorithms to ace coding interviews.</p>
+                        
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"></div>
+                            <span>Maria Chen</span>
+                        </div>
+                        
+                        <div class="course-footer">
+                            <div class="course-duration">
+                                <i class="far fa-clock"></i>
+                                <span>32 hours</span>
+                            </div>
+                            <span style="font-weight: 600; color: var(--secondary);">Premium</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-image">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">Database</span>
+                        <h4>SQL & Database Design Mastery</h4>
+                        <p>Learn to design efficient databases and write complex SQL queries for real applications.</p>
+                        
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"></div>
+                            <span>David Wilson</span>
+                        </div>
+                        
+                        <div class="course-footer">
+                            <div class="course-duration">
+                                <i class="far fa-clock"></i>
+                                <span>18 hours</span>
+                            </div>
+                            <span style="font-weight: 600; color: var(--secondary);">Free</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo">
+                        <i class="fas fa-code"></i>
+                        <h1>The Coding Current</h1>
+                    </div>
+                    <p style="margin-top: 15px;">Master coding through interactive challenges and structured learning paths. Ride the wave of code mastery with us.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Learning</h4>
+                    <ul>
+                        <li><a href="#">Learning Paths</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Projects</a></li>
+                        <li><a href="#">Certifications</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Code Examples</a></li>
+                        <li><a href="#">Cheat Sheets</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 The Coding Current. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Learning Page JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter functionality for learning paths
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const pathCards = document.querySelectorAll('.path-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // Filter path cards
+                    pathCards.forEach(card => {
+                        if (filterValue === 'all') {
+                            card.style.display = 'block';
+                        } else {
+                            const categories = card.getAttribute('data-category');
+                            if (categories.includes(filterValue)) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.querySelector('.search-box input');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                pathCards.forEach(card => {
+                    const title = card.querySelector('h4').textContent.toLowerCase();
+                    const description = card.querySelector('.path-description').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Course card hover effects
+            const courseCards = document.querySelectorAll('.course-card');
+            courseCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.05)';
+                });
+            });
+            
+            // Button click handlers
+            document.querySelectorAll('.btn-primary, .btn-outline').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.textContent.includes('Continue Learning') || this.textContent.includes('Start Learning')) {
+                        alert('This would open the selected learning path. This is a demo.');
+                    } else if (this.textContent.includes('Sign Up')) {
+                        alert('Sign up modal would open here. This is a demo.');
+                    } else if (this.textContent.includes('Log In')) {
+                        alert('Login modal would open here. This is a demo.');
+                    }
+                });
+            });
+            
+            // Simulate loading animation for progress bars
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                
+                setTimeout(() => {
+                    bar.style.transition = 'width 1.5s ease-in-out';
+                    bar.style.width = width;
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
